@@ -1,3 +1,6 @@
+
+http://blog.samuelattard.com/the-tutorial-for-php-websockets-that-i-wish-had-existed/
+
 FanVision Backend
 
 When getting an update from the websocket, I am expecting to receive a JSON formatted in the following way:
