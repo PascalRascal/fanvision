@@ -35,6 +35,8 @@ public class gyro_CameraRotation : MonoBehaviour {
         camGrandparent.transform.parent = currentParent;
 
         gyroBool = SystemInfo.supportsGyroscope;
+        Input.compass.enabled = true;
+   
 
     }
     // Use this for initialization
@@ -87,7 +89,7 @@ public class gyro_CameraRotation : MonoBehaviour {
         }
 
         //Ideally cuts down on the shape stuttering around
-        if (Mathf.Abs(Quaternion.Angle(newquatMap, previousRotation)) > 0.1)
+        if (Mathf.Abs(Quaternion.Angle(newquatMap*quatMult, previousRotation*quatMult)) > 0.1)
         {
             transform.localRotation = newquatMap * quatMult;
             previousRotation = newquatMap;

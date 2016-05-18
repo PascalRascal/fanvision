@@ -6,9 +6,8 @@ using System.Collections;
 
 public class testLongLat : MonoBehaviour {
 
-    public GameObject townHall;
+    public GameObject POIPrefab;
     public GameObject cam;
-    public GameObject bullet;
     GameObject poi;
     Text txt;
 
@@ -44,7 +43,7 @@ public class testLongLat : MonoBehaviour {
         //Instantiate(y, cam.transform.position + up, cam.transform.rotation);
         txt = GetComponent<Text>();
         Input.location.Start();
-        lls = new LongLatSpawner(41.16632f, -81.4468f, cam, bullet);
+        lls = new LongLatSpawner(41.16632f, -81.4468f, cam, POIPrefab);
         Debug.Log(lookAt.transform.position);
         Debug.Log(cam.transform.position);
         Debug.Log(this.transform.position);
@@ -55,11 +54,7 @@ public class testLongLat : MonoBehaviour {
 
 
         // txt.text = RenderVector.x.ToString() + "\n" + RenderVector.y.ToString() + "\n" + RenderVector.z.ToString() + "\n" + lati + "\n" + longi + "\n" + lls.geteBrng().ToString();
-
-
-
-
-
+        txt.text = Random.onUnitSphere.ToString();
     }
 
     // Update is called once per frame
@@ -71,8 +66,7 @@ public class testLongLat : MonoBehaviour {
             {
                 lati = Input.location.lastData.latitude;
                 longi = Input.location.lastData.longitude;
-                lls = new LongLatSpawner(lati, longi, cam, bullet);
-                //Instantiate(townHall, cam.transform.position, cam.transform.rotation);
+                lls = new LongLatSpawner(lati, longi, cam, POIPrefab);
 
 
                 createPOI(41.167436f, -81.441500f, "Stow City Hall");
@@ -88,7 +82,7 @@ public class testLongLat : MonoBehaviour {
     private void createPOI(float lat, float longi, string title)
     {
         Vector3 RenderVector = lls.spawnModel(lat, longi);
-        poif = new POIFactory(townHall, title, title);
+        poif = new POIFactory(POIPrefab, title, title);
         GameObject POI = (GameObject)Instantiate(poif.getPOI(), cam.transform.position + RenderVector, cam.transform.rotation);
         POI.transform.LookAt(cam.transform);
     }

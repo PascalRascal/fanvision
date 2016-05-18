@@ -33,12 +33,32 @@ public class fire_fireworks : MonoBehaviour {
     void fireFirework()
     {
         //Spawns a firework at a random coordinate at a certain magnitude away
+        int bias = 0;
         float h2 = magnitude * magnitude;
-        x = Random.Range(0, Mathf.Sqrt(h2));
-        h2 = h2 - (x * x);
-        y = Random.Range(0, Mathf.Sqrt(h2));
-        h2 = h2 - (y * y);
-        z = Random.Range(0, Mathf.Sqrt(h2));
+        if (bias == 0)
+        {
+            x = Random.Range(-Mathf.Sqrt(h2), Mathf.Sqrt(h2));
+            h2 = h2 - (x * x);
+            y = Random.Range(-Mathf.Sqrt(h2), Mathf.Sqrt(h2));
+            h2 = h2 - (y * y);
+            z = Random.Range(-Mathf.Sqrt(h2), Mathf.Sqrt(h2));
+        }
+        //else if (bias == 1)
+        {
+            y = Random.Range(-Mathf.Sqrt(h2), Mathf.Sqrt(h2));
+            h2 = h2 - (y * y);
+            x = Random.Range(-Mathf.Sqrt(h2), Mathf.Sqrt(h2));
+            h2 = h2 - (x * x);
+            z = Random.Range(-Mathf.Sqrt(h2), Mathf.Sqrt(h2));
+        }
+        //else if (bias == 2)
+        {
+            z = Random.Range(-Mathf.Sqrt(h2), Mathf.Sqrt(h2));
+            h2 = h2 - (z * z);
+            y = Random.Range(-Mathf.Sqrt(h2), Mathf.Sqrt(h2));
+            h2 = h2 - (y * y);
+            x = Random.Range(-Mathf.Sqrt(h2), Mathf.Sqrt(h2));
+        }
    
 
 

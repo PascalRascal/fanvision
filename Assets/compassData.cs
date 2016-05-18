@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class compassData : MonoBehaviour {
+    public GameObject cam;
     Compass comp;
     Text txt;
 	// Use this for initialization
@@ -17,7 +18,7 @@ public class compassData : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         txt = GetComponent<Text>();
-        txt.text = comp.trueHeading.ToString() + "\n" + transform.rotation.eulerAngles.ToString();
+        txt.text = comp.trueHeading.ToString() + "\n" + cam.transform.rotation.eulerAngles.ToString();
 	}
 }
 
