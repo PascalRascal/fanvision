@@ -7,7 +7,9 @@ using fanVision;
 public class websocketTest : MonoBehaviour {
     public GameObject cam;
     public GameObject POIPrefab;
+    public GameObject strikeOut;
 
+    Animation animate;
     GameObject poi;
     Text txt;
 
@@ -24,13 +26,31 @@ public class websocketTest : MonoBehaviour {
     void Start () {
         //Start location services
         Input.location.Start();
-	
-	}
+        GameObject anim = (GameObject)Instantiate(strikeOut, cam.transform.position + Vector3.forward, cam.transform.rotation);
+        animate = anim.GetComponent<Animation>();
+        anim.transform.LookAt(cam.transform);
+        animate.Play();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        if (animate.isPlaying)
+        {
+            Debug.Log("The animation is playing");
+        }
+
+        if (Input.touchCount == 1)
+        {
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                //HERE WE GO!
+                GameObject anim = (GameObject)Instantiate(strikeOut, cam.transform.position + Vector3.forward, cam.transform.rotation);
+                anim.GetComponent<Animation>().Play();
+                anim.transform.LookAt(cam.transform);
+            }
+        }
+    }
 
     private void setLLS()
     {

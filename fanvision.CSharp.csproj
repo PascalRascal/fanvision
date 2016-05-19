@@ -133,6 +133,7 @@
     <Compile Include="Assets\Vuforia\Scripts\WireframeBehaviour.cs" />
     <Compile Include="Assets\Vuforia\Scripts\WireframeTrackableEventHandler.cs" />
     <Compile Include="Assets\Vuforia\Scripts\WordBehaviour.cs" />
+    <Compile Include="Assets\animationScript.cs" />
     <Compile Include="Assets\bullet_movement.cs" />
     <Compile Include="Assets\bullet_shoot.cs" />
     <Compile Include="Assets\compassData.cs" />
