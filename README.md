@@ -107,7 +107,8 @@ POIS will only be removed via a websocket BROADCAST
 
 ###UPDATES
 
-##### - Game Update (can include any of these in an array)
+#####
+- Game Update (can include any of these in an array)
 
 ```
 {
