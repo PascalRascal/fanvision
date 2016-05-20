@@ -97,14 +97,12 @@ ALERTS---
 -Home Run Alert
 
 ``
-
 {
   "data_type": "alert",
   "data": {
     "type": "homerun"
   }
 }
-
 ``
 
 UPDATES---
