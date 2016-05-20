@@ -11,7 +11,9 @@ public class websocketTest : MonoBehaviour {
     public GameObject cam;
     public GameObject POIPrefab;
     public GameObject strikeOut;
-    public Text txt;
+    public Text home_score;
+    public Text away_score;
+    public Text strikes;
     Network_Socket ns;
 
     Animation animate;
@@ -34,6 +36,10 @@ public class websocketTest : MonoBehaviour {
         Input.location.Start();
         setLLS();
         WebSocket ws = new WebSocket("ws://stoh.io:6969");
+        poif = new POIFactory(POIPrefab, "Chipotle", "reeeee", "red");
+        GameObject poi = (GameObject) Instantiate(poif.getPOI(), cam.transform.position + Vector3.forward, Quaternion.identity);
+        poi.transform.LookAt(cam.transform);
+
 
     }
 
@@ -84,12 +90,24 @@ public class websocketTest : MonoBehaviour {
     {
         float latit = newPOI["latitude"].AsFloat;
         float longit = newPOI["longitude"].AsFloat;
-        string ttle = newPOI["title"].ToString();
+        string ttle = newPOI["title"];
         createPOI(latit, longit, ttle);
     }
     private void handleGameUpdate(JSONNode gameUpdate)
     {
         //TODO: Implement HUD
+        string item = gameUpdate["item"];
+        if (item.Equals("strike"))
+        {
+            strikes.text = gameUpdate["new_value"];
+        }else if (item.Equals("homeScore"))
+        {
+            home_score.text = gameUpdate["new_value"];
+        }else if (item.Equals("awayScore"))
+        {
+            away_score.text = gameUpdate["new_value"];
+        }
+
     }
 
     private void handleAlert(JSONNode alrt)
