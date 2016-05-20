@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using SimpleJSON;
 using WebSocketSharp;
 using UnityEngine.UI;
 using fanVision;
@@ -20,6 +23,7 @@ public class websocketTest : MonoBehaviour {
     float lati;
     LongLatSpawner lls;
 
+    string lastMSG = "NO DATA =(";
     POIFactory poif;
 
 
@@ -29,19 +33,17 @@ public class websocketTest : MonoBehaviour {
         ns = new Network_Socket();
         Input.location.Start();
         setLLS();
-        // GameObject anim = (GameObject)Instantiate(strikeOut, cam.transform.position + Vector3.forward, Quaternion.identity);
-        //animate = anim.GetComponentInChildren<Animation>();
-        //anim.transform.LookAt(cam.transform);
-        //animate.Play();
         WebSocket ws = new WebSocket("ws://stoh.io:6969");
 
     }
 
     // Update is called once per frame
     void Update () {
-        Debug.Log(ns.msg);
-        txt.text = ns.msg;
-
+        
+        if (newMSG())
+        {
+            handleMSG(ns.msg);
+        }
 
         if (Input.touchCount == 1)
         {
@@ -52,7 +54,58 @@ public class websocketTest : MonoBehaviour {
             }
         }
     }
+    private void handleMSG(string msg)
+    {
+        var n = JSON.Parse(msg);
+        string data_type = removeQuotes(n["data_type"].ToString());
+        Debug.Log("Got a message");
+        if (data_type.Equals("alert"))
+        {
+            handleAlert(n["data"]);
+        }
+        else if (data_type.Equals("game_update"))
+        {
+            handleGameUpdate(n["data"]);
+        }
+        else if (data_type.Equals("new_poi"))
+        {
+            handleNewPOI(n["data"]);
+        }
+        else if (data_type.Equals("remove_poi"))
+        {
+            handleRemovePOI(n["data"]);
+        }
+    }
+    private void handleRemovePOI(JSONNode removePOI)
+    {
+        
+    }
+    private void handleNewPOI(JSONNode newPOI)
+    {
+        float latit = newPOI["latitude"].AsFloat;
+        float longit = newPOI["longitude"].AsFloat;
+        string ttle = newPOI["title"].ToString();
+        createPOI(latit, longit, ttle);
+    }
+    private void handleGameUpdate(JSONNode gameUpdate)
+    {
+        //TODO: Implement HUD
+    }
 
+    private void handleAlert(JSONNode alrt)
+    {
+        Debug.Log("An alert was passed");
+        string alrt_type = alrt["type"];
+        if (alrt_type.Equals("homerun"))
+        {
+            Debug.Log("Starting FIREWORKS");
+            startFireworks();
+        }else if (alrt_type.Equals("strike_out"))
+        {
+            showStrikeout();
+        }
+        Debug.Log(alrt_type);
+    }
     private void setLLS()
     {
         lati = Input.location.lastData.latitude;
@@ -61,12 +114,50 @@ public class websocketTest : MonoBehaviour {
 
     }
 
+
     private void createPOI(float lat, float longit, string title)
     {
         Vector3 RenderVector = lls.spawnModel(lat, longit);
         poif = new POIFactory(POIPrefab, title, title);
         GameObject POI = (GameObject)Instantiate(poif.getPOI(), cam.transform.position + RenderVector, Quaternion.identity);
         POI.transform.LookAt(cam.transform);
+    }
+
+    private void startFireworks()
+    {
+        fire_fireworks fireworks = GetComponent<fire_fireworks>();
+        fireworks.duration = 10;
+        fireworks.enabled = true;
+    }
+
+    private void showStrikeout()
+    {
+        GameObject anim = (GameObject)Instantiate(strikeOut, cam.transform.position + Vector3.forward, Quaternion.identity);
+        animate = anim.GetComponentInChildren<Animation>();
+        anim.transform.LookAt(cam.transform);
+        animate.Play();
+        //TODO: Remove gameObject after animation and have it render in front of the person every time
+
+    }
+
+    private bool newMSG()
+    {
+        if (ns.msg.Equals(lastMSG))
+        {
+            return false;
+        }
+        else
+        {
+            lastMSG = ns.msg;
+            return true;
+        }
+    }
+    //Removes the quotes from a JSON data field (assumes quotes are at start and end
+    private string removeQuotes(string str)
+    {
+        str = str.Remove(0, 1);
+        str = str.Remove(str.Length - 1, 1);
+        return str;
     }
 
 

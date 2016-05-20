@@ -72,7 +72,6 @@ public class fire_fireworks : MonoBehaviour {
     IEnumerator fireworkRoutine(Vector3 position)
     {
         Instantiate(fireworkPrefab, cam.transform.position + position, cam.transform.rotation);
-        Debug.Log("Fireowrk launched!");
         yield return true; 
     }
 
