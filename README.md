@@ -94,7 +94,7 @@ POIS will only be removed via a websocket BROADCAST
 
 ###ALERTS
 
-#####Home Run Alert
+- Home Run Alert
 
 ```
 {
