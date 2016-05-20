@@ -133,9 +133,7 @@ public class websocketTest : MonoBehaviour {
     private void showStrikeout()
     {
         GameObject anim = (GameObject)Instantiate(strikeOut, cam.transform.position + Vector3.forward, Quaternion.identity);
-        animate = anim.GetComponentInChildren<Animation>();
         anim.transform.LookAt(cam.transform);
-        animate.Play();
         //TODO: Remove gameObject after animation and have it render in front of the person every time
 
     }

@@ -4,6 +4,7 @@ using System.Collections;
 public class animationScript : MonoBehaviour {
 
     public Animation anim;
+    private float timePlaying = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +16,12 @@ public class animationScript : MonoBehaviour {
 	void Update () {
         if (anim.isPlaying)
         {
-            Debug.Log("Animation should be playing");
+            timePlaying += Time.deltaTime;
+        }
+        if(timePlaying >= 5.2)
+        {
+            Debug.Log("Animation stopped");
+            this.gameObject.SetActive(false);
         }
 	}
 }
