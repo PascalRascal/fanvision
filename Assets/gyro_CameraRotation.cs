@@ -99,7 +99,7 @@ public class gyro_CameraRotation : MonoBehaviour {
 
     void Disable()
     {
-        camParent.transform.eulerAngles = new Vector3(0, 0, 0);
+        //camParent.transform.eulerAngles = new Vector3(0, 0, 0);
     }
 }
 

@@ -36,9 +36,6 @@ public class websocketTest : MonoBehaviour {
         Input.location.Start();
         setLLS();
         WebSocket ws = new WebSocket("ws://stoh.io:6969");
-        poif = new POIFactory(POIPrefab, "Chipotle", "reeeee", "red");
-        GameObject poi = (GameObject) Instantiate(poif.getPOI(), cam.transform.position + Vector3.forward, Quaternion.identity);
-        poi.transform.LookAt(cam.transform);
 
 
     }

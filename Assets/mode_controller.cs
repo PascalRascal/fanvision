@@ -3,7 +3,7 @@ using System.Collections;
 
 public class mode_controller : MonoBehaviour {
 
-
+    public GameObject ARcamera;
     float TRIGGER_DURATION = 3;
     float touchTimer;
     bool triggered;
@@ -14,7 +14,9 @@ public class mode_controller : MonoBehaviour {
     // Use this for initialization
     void Start () {
         gyroCam = GetComponent<gyro_CameraRotation>();
-        HUD = GetComponentInChildren<Canvas>();
+        HUD = GetComponentsInChildren<Canvas>()[1];
+        HUD.enabled = false; 
+
 
 
     }
@@ -40,8 +42,11 @@ public class mode_controller : MonoBehaviour {
                     if (gyroCam.enabled)
                     {
                         gyroCam.enabled = false;
-                        //HUD.enabled = false;
-                    }else
+                        HUD.enabled = false;
+                        ARcamera.transform.parent.rotation = Quaternion.identity;
+
+                    }
+                    else
                     {
                         gyroCam.enabled = true;
                         HUD.enabled = true;
