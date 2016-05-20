@@ -94,7 +94,7 @@ POIS will only be removed via a websocket BROADCAST
 
 ###ALERTS
 
-####Home Run Alert
+#####Home Run Alert
 
 ``
 {
@@ -107,7 +107,7 @@ POIS will only be removed via a websocket BROADCAST
 
 ###UPDATES
 
-####Game Update (can include any of these in an array)
+#####Game Update (can include any of these in an array)
 
 ``
 {
@@ -136,7 +136,7 @@ POIS will only be removed via a websocket BROADCAST
 
 ###POIS
 
-####Add POI
+#####Add POI
 
 ``
 {
