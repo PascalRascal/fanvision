@@ -36,6 +36,7 @@ public class websocketTest : MonoBehaviour {
         Input.location.Start();
         setLLS();
         WebSocket ws = new WebSocket("ws://stoh.io:6969");
+        showStrikeout();
 
 
     }
@@ -149,6 +150,7 @@ public class websocketTest : MonoBehaviour {
     {
         GameObject anim = (GameObject)Instantiate(strikeOut, cam.transform.position + Vector3.forward, Quaternion.identity);
         anim.transform.LookAt(cam.transform);
+        anim.GetComponentInChildren<animationScript>().enabled = true;
         //TODO: Remove gameObject after animation and have it render in front of the person every time
 
     }
