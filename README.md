@@ -87,4 +87,52 @@ When POIS are added, the websocket will need to send a BROADCAST to all clients 
 POIS will only be removed via a websocket BROADCAST
 
 
- 
+
+
+
+--------------------------EXAMPLES
+ALERTS---
+-Home Run Alert
+{
+  "data_type": "alert",
+  "data": {
+    "type": "homerun"
+  }
+}
+
+UPDATES---
+-Game Update (can include any of these in an array)
+{
+  "data_type": "game_update",
+  "data": [
+    {
+      "item": "strikes",
+      "new_value": 2
+    },
+    {
+      "item": "home_score",
+      "new_value": 10
+    },
+    {
+      "item": "away_score",
+      "new_value": 7
+    },
+    {
+      "item": "inning",
+      "new_value": 4
+    }
+  ]
+}
+
+POIS----
+-Add POI
+{
+  "data_type": "new_poi",
+  "data": {
+    "latitude": 10,
+    "longitude": -89,
+    "title": "Come Here!",
+    "description": "This is an interesting area to buy stuff!",
+    "color": "blue"
+  }
+}
