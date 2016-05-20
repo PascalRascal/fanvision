@@ -6,7 +6,6 @@ using SimpleJSON;
 using WebSocketSharp;
 using UnityEngine.UI;
 using fanVision;
-
 public class websocketTest : MonoBehaviour {
     public GameObject cam;
     public GameObject POIPrefab;
@@ -36,7 +35,6 @@ public class websocketTest : MonoBehaviour {
         Input.location.Start();
         setLLS();
         WebSocket ws = new WebSocket("ws://stoh.io:6969");
-        showStrikeout();
 
 
     }
@@ -93,17 +91,49 @@ public class websocketTest : MonoBehaviour {
     }
     private void handleGameUpdate(JSONNode gameUpdate)
     {
-        //TODO: Implement HUD
-        string item = gameUpdate["item"];
-        if (item.Equals("strike"))
+        Debug.Log(gameUpdate);
+        int count = gameUpdate.Count;
+        for (int i = 0; i < count; i++)
         {
-            strikes.text = gameUpdate["new_value"];
-        }else if (item.Equals("homeScore"))
-        {
-            home_score.text = gameUpdate["new_value"];
-        }else if (item.Equals("awayScore"))
-        {
-            away_score.text = gameUpdate["new_value"];
+            string item = gameUpdate[i]["item"];
+
+            switch (item)
+            {
+                case "strikes":
+                    string strStrikes = "";
+                    int numStrikes = int.Parse(gameUpdate[i]["new_value"]);
+                    switch (numStrikes)
+                    {
+                        case 0:
+                            strStrikes = "";
+                            break;
+                        case 1:
+                            strStrikes = "X";
+                            break;
+                        case 2:
+                            strStrikes = "XX";
+                            break;
+                        case 3:
+                            strStrikes = "XXX";
+                            showStrikeout();
+                            break;
+
+                    }
+                    strikes.text = strStrikes;
+                    break;
+                case "home_score":
+                    home_score.text = gameUpdate[i]["new_value"];
+                    break;
+                case "away_score":
+                    away_score.text = gameUpdate[i]["new_value"];
+                    break;
+                case "inning":
+                    Debug.Log("Inning would be changed here but theres not UI!");
+                    break;
+                default:
+                    break;
+            }
+
         }
 
     }
