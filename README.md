@@ -136,7 +136,7 @@ POIS will only be removed via a websocket BROADCAST
 
 ###POIS
 
-#####Add POI
+-#####Add POI
 
 ```
 {
