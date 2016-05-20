@@ -26,6 +26,21 @@
     <script type="text/javascript">
     $("document").ready(function(){
 
+    // --------------------------- handle Alerts
+      $("#alert").click(function(){
+        var data = {
+         id: "alert",
+         d_alert: $(this).attr("value")
+        };
+        alert(JSON.stringify(data));
+        $.ajax({
+                   type: "POST",
+                   url: "localhost:8080/api/alerts",
+                   data
+                 });
+
+               });
+    // --------------------------- handle POIs
       $(".POI").click(function(){
         var data = {
          id: "new_poi",
@@ -35,50 +50,34 @@
          long: $("#long").val(),
          color: $("#long").val()
         };
-        alert(JSON.stringify(me));
+        alert(JSON.stringify(data));
         $.ajax({
                    type: "POST",
-                   url: "stoh.io/fanvision/forBlaise.php",
+                   url: "localhost:8080/api/pois",
                    data
                  });
 
                });
-             });
-            //  $(".POI").click(function(){
-            //    var data = {
-            //     id: "new_poi",
-            //     title: $("#title").val(),
-            //     description: $("#description").val(),
-            //     lat: $("#lat").val(),
-            //     long: $("#long").val()
-            //    };
-            //    alert(JSON.stringify(me));
-            //    $.ajax({
-            //               type: "POST",
-            //               url: "stoh.io/fanvision/forBlaise.php",
-            //               data
-            //             });
-             //
-            //           });
-            //         });
-
-
-    $(".g_update").click(function(){
+// ---------------------------- handle normal game updates
+    $("#g_update").click(function(){
       var data = {
-       id: "new_poi",
-       title: $("#title").val(),
-       description: $("#description").val(),
-       lat: $("#lat").val(),
-       long: $("#long").val()
+       id: "game_update",
+       strikes: $("#strikes").val(),
+       inning: $("#inning").val(),
+       homeScore: $("#h-score").val(),
+       awayScore: $("#a-score").val()
       };
-      alert(JSON.stringify(me));
+      alert(JSON.stringify(data));
       $.ajax({
                  type: "POST",
-                 url: "stoh.io/fanvision/forBlaise.php",
+                 url: "localhost:8080/api/g_updates",
                  data
                });
 
            });
+
+ 
+});
     </script>
 
 
@@ -430,6 +429,41 @@
                 </div>
               </div>
             </div>
+            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  PANEL FOR ALERTS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="x_panel tile fixed_height_320">
+                <div class="x_title">
+                  <h2>Game Update</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="dashboard-widget-content">
+
+                               <form id=submit action="">
+                                 <button  name="response" type="submit" id="alert" class="btn btn-danger" value="homerun">!HOMERUN!</button>
+                               </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
             <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  PANEL FOR GAME UPDATES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
             <div class="col-md-4 col-sm-4 col-xs-12">
@@ -456,28 +490,15 @@
                 <div class="x_content">
                   <div class="dashboard-widget-content">
 
-                    <ul class="quick-list">
-                      <li><i class="fa fa-calendar-o"></i><a href="#">Strike 1</a>
-                      </li>
-                      <li><i class="fa fa-bars"></i><a href="#">Strike 2</a>
-                      </li>
-                        <li><i class="fa fa-calendar-o"></i><a href="#">Strike 3</a>
-                        </li>
-                        <li><i class="fa fa-bars"></i><a href="#">7th Inning Stretch</a>
-                        </li>
-
-                    </ul>
                     <div class="sidebar-widget">
-                                 <h4>Push</h4>
+                                 <h4>Info</h4>
                                  <canvas width="150" height="80" id="foo" class="" style="width: 160px; height: 50px;"></canvas>
                                <form id=submit action="">
-                                 <input  name="response" placeholder="Title" type="text" id="title"></input>
-                                 <input  name="response" placeholder="Description" type="text" id="description"></input>
-                                 <input  name="response" placeholder="Lat" type="text" id="lat"></input>
-                                 <input  name="response" placeholder="Long" type="text" id="long"></input>
-                                 <input  name="response" placeholder="Color" value="red" type="text" id="color"></input>
-
-                                 <button  name="response" type="submit" class="g_update">PUSH</button>
+                                 <input  name="g-up-response" placeholder="Strikes" type="text" id="strikes"></input>
+                                 <input  name="g-up-response" placeholder="Inning" type="text" id="inning"></input>
+                                 <input  name="g-up-response" placeholder="Away Score" type="text" id="a-score"></input>
+                                 <input  name="g-up-response" placeholder="Home Score" type="text" id="h-score"></input>
+                                 <button  name="response" type="submit" id="g_update">PUSH</button>
                                </form>
                     </div>
 
@@ -528,7 +549,6 @@
                                  <input  name="response" placeholder="Lat" type="text" id="lat"></input>
                                  <input  name="response" placeholder="Long" type="text" id="long"></input>
                                  <input  name="response" placeholder="Color" value="red" type="text" id="color"></input>
-
                                  <button  name="response" type="submit" class="POI">PUSH</button>
                                </form>
                     </div>
