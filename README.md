@@ -95,13 +95,21 @@ POIS will only be removed via a websocket BROADCAST
 ALERTS---
 
 -Home Run Alert
+
 ``
+
 {
+
   "data_type": "alert",
+  
   "data": {
+  
     "type": "homerun"
+    
   }
+  
 }
+
 ``
 
 UPDATES---
@@ -109,6 +117,7 @@ UPDATES---
 -Game Update (can include any of these in an array)
 
 ``
+
 {
   "data_type": "game_update",
   "data": [
