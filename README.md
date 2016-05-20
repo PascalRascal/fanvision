@@ -90,11 +90,11 @@ POIS will only be removed via a websocket BROADCAST
 
 
 
---------------------------EXAMPLES
+##EXAMPLES
 
-ALERTS---
+###ALERTS
 
--Home Run Alert
+####Home Run Alert
 
 ``
 {
@@ -105,9 +105,9 @@ ALERTS---
 }
 ``
 
-UPDATES---
+###UPDATES
 
--Game Update (can include any of these in an array)
+####Game Update (can include any of these in an array)
 
 ``
 {
@@ -134,9 +134,9 @@ UPDATES---
 ``
 
 
-POIS----
+###POIS
 
--Add POI
+####Add POI
 
 ``
 {
