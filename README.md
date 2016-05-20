@@ -110,7 +110,6 @@ UPDATES---
 -Game Update (can include any of these in an array)
 
 ``
-
 {
   "data_type": "game_update",
   "data": [
