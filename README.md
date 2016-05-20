@@ -96,20 +96,20 @@ POIS will only be removed via a websocket BROADCAST
 
 #####Home Run Alert
 
-``
+```
 {
   "data_type": "alert",
   "data": {
     "type": "homerun"
   }
 }
-``
+```
 
 ###UPDATES
 
 #####Game Update (can include any of these in an array)
 
-``
+```
 {
   "data_type": "game_update",
   "data": [
@@ -131,14 +131,14 @@ POIS will only be removed via a websocket BROADCAST
     }
   ]
 }
-``
+```
 
 
 ###POIS
 
 #####Add POI
 
-``
+```
 {
   "data_type": "new_poi",
   "data": {
@@ -149,4 +149,4 @@ POIS will only be removed via a websocket BROADCAST
     "color": "blue"
   }
 }
-``
+```
