@@ -81,6 +81,7 @@
     <Compile Include="Assets\Fireworks.cs" />
     <Compile Include="Assets\GeoUTMConverter.cs" />
     <Compile Include="Assets\LongLatSpawner.cs" />
+    <Compile Include="Assets\Network_Socket.cs" />
     <Compile Include="Assets\POIFactory.cs" />
     <Compile Include="Assets\Scripts\ARVRAboutManager.cs" />
     <Compile Include="Assets\Scripts\Autofocus.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Assets\Vuforia\Scripts\WireframeTrackableEventHandler.cs" />
     <Compile Include="Assets\Vuforia\Scripts\WordBehaviour.cs" />
     <Compile Include="Assets\animationScript.cs" />
+    <Compile Include="Assets\asda.cs" />
     <Compile Include="Assets\bullet_movement.cs" />
     <Compile Include="Assets\bullet_shoot.cs" />
     <Compile Include="Assets\compassData.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="Assets\mode_controller.cs" />
     <Compile Include="Assets\rotation.cs" />
     <Compile Include="Assets\testLongLat.cs" />
+    <Compile Include="Assets\testWebsocket.cs" />
     <Compile Include="Assets\websocketTest.cs" />
   </ItemGroup>
   <ItemGroup>

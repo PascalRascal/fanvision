@@ -8,10 +8,11 @@ public class websocketTest : MonoBehaviour {
     public GameObject cam;
     public GameObject POIPrefab;
     public GameObject strikeOut;
+    public Text txt;
+    Network_Socket ns;
 
     Animation animate;
     GameObject poi;
-    Text txt;
 
 
 
@@ -25,29 +26,29 @@ public class websocketTest : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //Start location services
+        ns = new Network_Socket();
         Input.location.Start();
-        GameObject anim = (GameObject)Instantiate(strikeOut, cam.transform.position + Vector3.forward, cam.transform.rotation);
-        animate = anim.GetComponent<Animation>();
-        anim.transform.LookAt(cam.transform);
-        animate.Play();
+        setLLS();
+        // GameObject anim = (GameObject)Instantiate(strikeOut, cam.transform.position + Vector3.forward, Quaternion.identity);
+        //animate = anim.GetComponentInChildren<Animation>();
+        //anim.transform.LookAt(cam.transform);
+        //animate.Play();
+        WebSocket ws = new WebSocket("ws://stoh.io:6969");
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (animate.isPlaying)
-        {
-            Debug.Log("The animation is playing");
-        }
+
+    // Update is called once per frame
+    void Update () {
+        Debug.Log(ns.msg);
+        txt.text = ns.msg;
+
 
         if (Input.touchCount == 1)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 //HERE WE GO!
-                GameObject anim = (GameObject)Instantiate(strikeOut, cam.transform.position + Vector3.forward, cam.transform.rotation);
-                anim.GetComponent<Animation>().Play();
-                anim.transform.LookAt(cam.transform);
+                animate.Play();
             }
         }
     }
@@ -60,11 +61,11 @@ public class websocketTest : MonoBehaviour {
 
     }
 
-    private void createPOI(float lat, float longi, string title)
+    private void createPOI(float lat, float longit, string title)
     {
-        Vector3 RenderVector = lls.spawnModel(lat, longi);
+        Vector3 RenderVector = lls.spawnModel(lat, longit);
         poif = new POIFactory(POIPrefab, title, title);
-        GameObject POI = (GameObject)Instantiate(poif.getPOI(), cam.transform.position + RenderVector, cam.transform.rotation);
+        GameObject POI = (GameObject)Instantiate(poif.getPOI(), cam.transform.position + RenderVector, Quaternion.identity);
         POI.transform.LookAt(cam.transform);
     }
 

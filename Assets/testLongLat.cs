@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using fanVision;
 using GeoUtil;
 using System.Collections;
+using WebSocketSharp;
 
 public class testLongLat : MonoBehaviour {
 
@@ -40,21 +41,26 @@ public class testLongLat : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        //Instantiate(y, cam.transform.position + up, cam.transform.rotation);
         txt = GetComponent<Text>();
         Input.location.Start();
-        lls = new LongLatSpawner(41.16632f, -81.4468f, cam, POIPrefab);
-        Debug.Log(lookAt.transform.position);
-        Debug.Log(cam.transform.position);
-        Debug.Log(this.transform.position);
-        //lookAt = (GameObject)Instantiate(townHall, cam.transform.position + Vector3.forward, cam.transform.rotation);
+        WebSocket ws = new WebSocket("ws://stoh.io:6969");
+        Debug.Log("Hello FUCK");
+        ws.OnMessage += (sender, e) =>
+        {
+            txt.text = e.Data;
+            Debug.Log(e.Data);
+        };
+
+        ws.OnError += (sender, e) =>
+        {
+            txt.text = "There was an error";
+        };
+        ws.ConnectAsync();
 
 
 
 
 
-        // txt.text = RenderVector.x.ToString() + "\n" + RenderVector.y.ToString() + "\n" + RenderVector.z.ToString() + "\n" + lati + "\n" + longi + "\n" + lls.geteBrng().ToString();
-        txt.text = Random.onUnitSphere.ToString();
     }
 
     // Update is called once per frame
@@ -64,14 +70,6 @@ public class testLongLat : MonoBehaviour {
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                lati = Input.location.lastData.latitude;
-                longi = Input.location.lastData.longitude;
-                lls = new LongLatSpawner(lati, longi, cam, POIPrefab);
-
-
-                createPOI(41.167436f, -81.441500f, "Stow City Hall");
-                createPOI(41.155937f, -81.405905f, "Chipotle");
-
 
 
 
