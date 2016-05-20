@@ -99,15 +99,10 @@ ALERTS---
 ``
 
 {
-
   "data_type": "alert",
-  
   "data": {
-  
     "type": "homerun"
-    
   }
-  
 }
 
 ``
