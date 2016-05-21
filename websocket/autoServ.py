@@ -74,6 +74,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
             else:
                 print "FROM SERVER"
                 global jsonData_base
+                jsonData_base = {"data_type": "game_update", "data": []}
                 jsonData = jsonData_base
                 global currData
                 if currData["inning"] == -1:
