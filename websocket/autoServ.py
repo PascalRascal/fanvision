@@ -161,6 +161,7 @@ if __name__ == '__main__':
     from twisted.internet import reactor
 
     log.startLogging(sys.stdout)
+    ServerFactory  = BroadcastServerFactory
 
     factory = ServerFactory(u"ws://127.0.0.1:9000")
     factory.protocol = BroadcastServerProtocol
