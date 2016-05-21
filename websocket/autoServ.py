@@ -51,16 +51,27 @@ class MyServerProtocol(WebSocketServerProtocol):
             text = format(payload.decode('utf8'))
 
             if text[0:6] != 'server':
-                self.sendMessage(text[7:], isBinary)
+                global jsonData_base, currData
+                jsonData = jsonData_base
+                for key, value in currData.iteritems():
+                    jsonData["data"].append({"item": key, "new_value": value})
+                self.sendMessage(json.dumps(jsonData), isBinary)
+
             else:
+                global jsonData_base
+                jsonData = jsonData_base
                 global currData
                 if currData is None:
                     currData = ast.literal_eval(text[6:])
-                    print currData
                 else:
+
                     data = currData
                     data = ast.literal_eval(text[6:])
-                    print data
+                    for key, value in data.iteritems():
+                        currData[key] = value
+                        jsonData["data"].append({"item": key, "new_value": value})
+                    self.sendMessage(json.dumps(jsonData), isBinary)
+
 
 
 
