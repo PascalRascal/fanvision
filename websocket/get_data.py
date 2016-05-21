@@ -9,9 +9,11 @@ from autobahn.twisted.websocket import WebSocketClientFactory, WebSocketClientPr
 game_data = {"inning": 0, "home_score": 0, "away_score": 0, "balls": 0, "strikes": 0, "outs": 0, "at_bat": "None", "photo": "None"}
 last_game_data = {"inning": -1, "home_score": -1, "away_score": -1, "balls": -1, "strikes": -1, "outs": -1, "at_bat": "-1", "photo": "-1"}
 url = "http://gd2.mlb.com/components/game/mlb/year_2016/month_05/day_20/gid_2016_05_20_tbamlb_detmlb_1/plays.json"
+photo = "http://mlb.mlb.com/mlb/images/players/head_shot/"
 data = {}
 last_data = data
 jsonData_base = {"data_type": "game_update", "data": []}
+global jsonData
 ###################END BASE VARIABLES
 
 
@@ -28,6 +30,7 @@ def make_json_all():
 
 
 def update_current_data():
+    global jsonData
     jsonData = jsonData_base
     global game_data
     global last_game_data
@@ -38,7 +41,7 @@ def update_current_data():
     game_data["strikes"] = data["data"]["game"]["s"]
     game_data["outs"] = data["data"]["game"]["o"]
     game_data["at_bat"] = data["data"]["game"]["players"]["batter"]["boxname"]
-    game_data["photo"] = data["data"]["game"]["players"]["batter"]["pid"]
+    game_data["photo"] = photo + str(data["data"]["game"]["players"]["batter"]["pid"]) + ".jpg"
 
     if str(game_data) != str(last_game_data):
         for key, value in game_data.iteritems():
@@ -46,6 +49,7 @@ def update_current_data():
                 jsonData["data"].append({"item": key, "new_value": value})
         print "Game Update! JSON:"
         print jsonData
+	reactor.run()
         print "-------------"
 
     last_game_data = game_data
@@ -55,12 +59,23 @@ def update_current_data():
 #Class for connecting to websocket
 class BroadcastClientProtocol(WebSocketClientProtocol):
     def sendMsg(self):
-        self.sendMessage(game_data.encode('utf8'))
+	print "sending msg"
+	print str(game_data)
+        self.sendMessage(str(game_data).encode('utf8'))
     def onOpen(self):
-        sendMsg(self)
+	global jsonData
+	print "<><>><<><><><"
+	print jsonData
+	jsonDump = json.dumps(jsonData)
+	print str(jsonDump)
+       	self.sendMessage(str(jsonDump).encode('utf8'))
+	print "message sent"
+	#sleep(2)
+	#self.factory.reactor.stop()
     def onMessage(self, payload, isBinary):
         if not isBinary:
             print("Message Received: {}".format(payload.decode('utf8')))
+	    self.factory.reactor.stop()
 if __name__== '__main__':
     if len(sys.argv) < 2:
         print ("Need WebSocket server address")
@@ -68,11 +83,11 @@ if __name__== '__main__':
     factory = WebSocketClientFactory(sys.argv[1])
     factory.protocol = BroadcastClientProtocol
     connectWS(factory)
-    reactor.run()
     while True:
-        response = urllib.urlopen(url)
+	print "running"
+   	response = urllib.urlopen(url)
         data = json.loads(response.read())
         if str(last_data) != str(data):
-            update_current_data()
+           update_current_data()
         last_data = data
         sleep(3)
