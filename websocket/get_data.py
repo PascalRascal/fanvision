@@ -90,6 +90,6 @@ if __name__== '__main__':
         "GOT DATA"
         if str(last_data) != str(data):
             print "DATA CHANGED"
-           update_current_data()
+            update_current_data()
         last_data = data
         sleep(3)
