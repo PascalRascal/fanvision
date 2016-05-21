@@ -60,7 +60,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
             #global jsonData_base
 
             if text[0:9] == 'fireworks':
-                self.factory.broadcast('{"data_type": "alert", "data", {"type": "homerun"}}')
+                self.factory.broadcast('{"data_type": "alert", "data": {"type": "homerun"}}')
                 return
             if text[0:6] != 'server':
                 print "NOT FROM SERVER"
