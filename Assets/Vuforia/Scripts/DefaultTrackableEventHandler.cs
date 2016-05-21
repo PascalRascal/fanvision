@@ -68,6 +68,7 @@ namespace Vuforia
 
         private void OnTrackingFound()
         {
+            Debug.Log("Tracking found");
             Renderer[] rendererComponents = GetComponentsInChildren<Renderer>(true);
             Collider[] colliderComponents = GetComponentsInChildren<Collider>(true);
 

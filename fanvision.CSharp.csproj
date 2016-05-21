@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -158,12 +152,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\360SphereShader.shader" />
+    <None Include="Assets\FanVision.xml" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Shaders\BlackMask.shader" />
     <None Include="Assets\Shaders\GroundBlend.shader" />
     <None Include="Assets\Shaders\OverlayMesh.shader" />
     <None Include="Assets\Shaders\SkyBlend.shader" />
     <None Include="Assets\Shaders\TransparentUnlit.shader" />
+    <None Include="Assets\StreamingAssets\QCAR\FanVision.xml" />
     <None Include="Assets\StreamingAssets\QCAR\Stones.xml" />
     <None Include="Assets\Vuforia\Editor\Scripts\Vuforia.UnityExtensions.Editor.XML" />
     <None Include="Assets\Vuforia\Editor\WebcamProfiles\profiles.xml" />
