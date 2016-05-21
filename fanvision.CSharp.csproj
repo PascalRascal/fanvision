@@ -139,6 +139,7 @@
     <Compile Include="Assets\asda.cs" />
     <Compile Include="Assets\bullet_movement.cs" />
     <Compile Include="Assets\bullet_shoot.cs" />
+    <Compile Include="Assets\calibrationScript.cs" />
     <Compile Include="Assets\compassData.cs" />
     <Compile Include="Assets\fire_fireworks.cs" />
     <Compile Include="Assets\gyro_CameraRotation.cs" />

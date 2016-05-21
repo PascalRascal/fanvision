@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="indiansLogoClassic" size="0.247000 0.247000" />
+    <ImageTarget name="clevelandIndiansCity" size="0.247000 0.247000" />
+    <ImageTarget name="stones" size="0.247000 0.173777" />
+    <ImageTarget name="cleveland-indians-mlb-baseball-round-area-rug" size="0.247000 0.247000" />
+  </Tracking>
+</QCARConfig>
