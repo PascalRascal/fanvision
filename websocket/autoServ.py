@@ -68,6 +68,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
                     jsonData["data"].append({"item": key, "new_value": value})
                 print "SENDING: " + str(json.dumps(jsonData))
                 self.sendMessage(json.dumps(jsonData), isBinary)
+                jsonData = None
                 print "MESSAGE SENT"
 
             else:
