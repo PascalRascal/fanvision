@@ -55,7 +55,9 @@ def update_current_data():
 #Class for connecting to websocket
 class BroadcastClientProtocol(WebSocketClientProtocol):
     def sendMsg(self):
-        self.sendMessage("Hello!".encode('utf8'))
+        self.sendMessage(game_data.encode('utf8'))
+    def onOpen(self):
+        sendMsg(self)
     def onMessage(self, payload, isBinary):
         if not isBinary:
             print("Message Received: {}".format(payload.decode('utf8')))
