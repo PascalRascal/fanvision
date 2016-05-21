@@ -51,6 +51,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
         #self.sendMessage(myVar)
 
     def onMessage(self, payload, isBinary):
+        print "NEW MESSAGE"
         if isBinary:
             print("Binary message received: {0} bytes".format(len(payload)))
         else:
@@ -58,27 +59,31 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
             text = format(payload.decode('utf8'))
 
             if text[0:6] != 'server':
+                print "NOT FROM SERVER"
                 global jsonData_base, currData
                 jsonData = jsonData_base
                 for key, value in currData.iteritems():
                     jsonData["data"].append({"item": key, "new_value": value})
+                print "SENDING: " + str(json.dumps(jsonData))
                 self.sendMessage(json.dumps(jsonData), isBinary)
+                print "MESSAGE SENT"
 
             else:
+                print "FROM SERVER"
                 global jsonData_base
                 jsonData = jsonData_base
                 global currData
                 if currData["inning"] == -1:
                     currData = ast.literal_eval(text[6:])
                 else:
-
                     data = currData
                     data = ast.literal_eval(text[6:])
                     for key, value in data.iteritems():
                         global currData
                         currData[key] = value
                         jsonData["data"].append({"item": key, "new_value": value})
-                        self.factory.broadcast(json.dumps(jsonData))
+                    print "BROADCASTING: " + str(json.dumps(jsonData))
+                    self.factory.broadcast(json.dumps(jsonData))
 
 
 
@@ -100,13 +105,6 @@ class BroadcastServerFactory(WebSocketServerFactory):
     def __init__(self, url):
         WebSocketServerFactory.__init__(self, url)
         self.clients = []
-        self.tickcount = 0
-        self.tick()
-
-    def tick(self):
-        self.tickcount += 1
-        self.broadcast("tick %d from server" % self.tickcount)
-        reactor.callLater(1, self.tick)
 
     def register(self, client):
         if client not in self.clients:
