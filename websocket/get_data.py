@@ -66,9 +66,9 @@ class BroadcastClientProtocol(WebSocketClientProtocol):
 	global jsonData
 	print "<><>><<><><><"
 	print jsonData
-	jsonDump = json.dumps(jsonData)
-	print "server" + str(jsonDump)
-        self.sendMessage(("server" + str(jsonDump)).encode('utf8'))
+	#jsonDump = json.dumps(jsonData)
+	print "server" + str(game_data)
+        self.sendMessage(("server" + str(game_data).encode('utf8'))
 	print "message sent"
 	#sleep(2)
 	#self.factory.reactor.stop()

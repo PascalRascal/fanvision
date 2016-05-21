@@ -27,8 +27,10 @@ import json
 from autobahn.twisted.websocket import WebSocketServerProtocol, \
     WebSocketServerFactory
 
-currData = None 
-myVar = 'UCFCK YOU CAM'
+
+currData = {"inning": -1, "home_score": -1, "away_score": -1, "balls": -1, "strikes": -1, "outs": -1, "at_bat": "-1", "photo": "-1"}
+jsonData_base = {"data_type": "game_update", "data": []}
+
 class MyServerProtocol(WebSocketServerProtocol):
     global myVar
     # global currData
@@ -58,14 +60,14 @@ class MyServerProtocol(WebSocketServerProtocol):
                     data = json.loads(text[6:])
                     print("print keys")
                     for key, value in data["data"]:
-                        # for keyz, valuez in 
+                        # for keyz, valuez in
                         # print(data["data"][key])
                         # print(data["data"][value])
                         # print("key = " + key + " value = " + value)
 
 
 
-                
+
     def onClose(self, wasClean, code, reason):
         print("WebSocket connection closed: {0}".format(reason))
 
