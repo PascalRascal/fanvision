@@ -8,7 +8,7 @@ from autobahn.twisted.websocket import WebSocketClientFactory, WebSocketClientPr
 ###################BASE VARIABLES
 game_data = {"inning": 0, "home_score": 0, "away_score": 0, "balls": 0, "strikes": 0, "outs": 0, "at_bat": "None", "photo": "None"}
 last_game_data = {"inning": -1, "home_score": -1, "away_score": -1, "balls": -1, "strikes": -1, "outs": -1, "at_bat": "-1", "photo": "-1"}
-url = "http://gd2.mlb.com/components/game/mlb/year_2016/month_05/day_20/gid_2016_05_20_tbamlb_detmlb_1/plays.json"
+url = "http://gd2.mlb.com/components/game/mlb/year_2016/month_05/day_21/gid_2016_05_21_clemlb_bosmlb_1/plays.json"
 photo = "http://mlb.mlb.com/mlb/images/players/head_shot/"
 data = {}
 last_data = data
