@@ -164,8 +164,7 @@ if __name__ == '__main__':
 
     factory = ServerFactory(u"ws://127.0.0.1:9002")
     factory.protocol = BroadcastServerProtocol
-    listenWS(factory)
     # factory.setProtocolOptions(maxConnections=2)
 
-    #reactor.listenTCP(9000, factory)
-    #reactor.run()
+    reactor.listenTCP(9002, factory)
+    reactor.run()
