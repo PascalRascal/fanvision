@@ -69,7 +69,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
                 print "SENDING: " + str(json.dumps(jsonData))
                 self.sendMessage(json.dumps(jsonData), isBinary)
                 jsonData = None
-                print "MESSAGE SENT"
+                jsonData_base = {"data_type": "game_update", "data": []}
 
             else:
                 print "FROM SERVER"
@@ -87,6 +87,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
                         jsonData["data"].append({"item": key, "new_value": value})
                     print "BROADCASTING: " + str(json.dumps(jsonData))
                     self.factory.broadcast(json.dumps(jsonData))
+                    jsonData_base = {"data_type": "game_update", "data": []}
 
 
 
