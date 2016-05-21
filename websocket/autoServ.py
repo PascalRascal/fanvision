@@ -58,13 +58,21 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
             # print("Text message received: {0}".format(payload.decode('utf8')))
             text = format(payload.decode('utf8'))
             #global jsonData_base
+            if text[0:6] == 'hudoff':
+                self.factory.broadcast('{"data_type": "alert", "data": {"type": "hud_off"}}')
+                return
+            if text[0:5] == 'hudon':
+                self.factory.broadcast('{"data_type": "alert", "data": {"type": "hud_on"}}')
+                return
             if text[0:3] == 'poi':
                 self.factory.broadcast('{"data_type": "new_poi", "data": {"latitude": 41.496042, "longitude": -81.683381, "title": "Hello Friends!", "color": "blue"}}')
+                return
             if text[0:9] == 'fireworks':
                 self.factory.broadcast('{"data_type": "alert", "data": {"type": "homerun"}}')
                 return
             if text[0:9] == 'strikeout':
                 self.factory.broadcast('{"data_type": "alert", "data": {"type": "strike_out"}}')
+                return
             if text[0:6] != 'server':
                 print "NOT FROM SERVER"
                 global currData
