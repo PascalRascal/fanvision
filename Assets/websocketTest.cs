@@ -256,7 +256,21 @@ public class websocketTest : MonoBehaviour {
         }else if (alrt_type.Equals("strike_out"))
         {
             showStrikeout();
+        }else if (alrt_type.Equals("hud_on"))
+        {
+            Debug.Log("Hud ON");
+            cam.GetComponent<gyro_CameraRotation>().enabled = true;
+            cam.GetComponentsInChildren<Canvas>()[1].enabled = true;
+            Handheld.Vibrate();
         }
+        else if (alrt_type.Equals("hud_off"))
+        {
+            Debug.Log("Hud OFF");
+            cam.GetComponent<gyro_CameraRotation>().enabled = false;
+            cam.GetComponentsInChildren<Canvas>()[1].enabled = false;
+            Handheld.Vibrate();
+        }
+
         Debug.Log(alrt_type);
     }
     private void setLLS()
