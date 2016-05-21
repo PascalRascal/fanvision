@@ -23,14 +23,15 @@
 # THE SOFTWARE.
 #
 ###############################################################################
-
+import json
 from autobahn.twisted.websocket import WebSocketServerProtocol, \
     WebSocketServerFactory
 
-
+currData = None 
 myVar = 'UCFCK YOU CAM'
 class MyServerProtocol(WebSocketServerProtocol):
     global myVar
+    # global currData
 
     def onConnect(self, request):
         print("Client connecting: {0}".format(request.peer))
@@ -43,12 +44,28 @@ class MyServerProtocol(WebSocketServerProtocol):
         if isBinary:
             print("Binary message received: {0} bytes".format(len(payload)))
         else:
-            print("Text message received: {0}".format(payload.decode('utf8')))
+            # print("Text message received: {0}".format(payload.decode('utf8')))
+            text = format(payload.decode('utf8'))
+
+            if text[0:6] != 'server':
+                self.sendMessage(text[7:], isBinary)
+            else:
+                global currData
+                if currData is None:
+                    currData = json.loads(text[6:])
+                    # print(currData)
+                else:
+                    data = json.loads(text[6:])
+                    print("print keys")
+                    for key, value in data["data"]:
+                        # for keyz, valuez in 
+                        # print(data["data"][key])
+                        # print(data["data"][value])
+                        # print("key = " + key + " value = " + value)
 
 
-        # echo back message verbatim
-        self.sendMessage(payload, isBinary)
 
+                
     def onClose(self, wasClean, code, reason):
         print("WebSocket connection closed: {0}".format(reason))
 

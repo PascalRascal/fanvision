@@ -67,8 +67,8 @@ class BroadcastClientProtocol(WebSocketClientProtocol):
 	print "<><>><<><><><"
 	print jsonData
 	jsonDump = json.dumps(jsonData)
-	print str(jsonDump)
-       	self.sendMessage(str(jsonDump).encode('utf8'))
+	print "server" + str(jsonDump)
+        self.sendMessage(("server" + str(jsonDump)).encode('utf8'))
 	print "message sent"
 	#sleep(2)
 	#self.factory.reactor.stop()
