@@ -85,6 +85,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
                     for key, value in data.iteritems():
                         global currData
                         currData[key] = value
+                        print "CHANGING " + str(key) + "TO " + str(value)
                         jsonData["data"].append({"item": key, "new_value": value})
                     print "BROADCASTING: " + str(json.dumps(jsonData))
                     self.factory.broadcast(json.dumps(jsonData))
