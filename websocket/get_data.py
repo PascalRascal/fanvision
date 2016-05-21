@@ -92,4 +92,4 @@ if __name__== '__main__':
             print "DATA CHANGED"
             update_current_data()
         last_data = data
-        sleep(3)
+        sleep(10)
