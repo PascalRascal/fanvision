@@ -43,7 +43,7 @@ public class websocketTest : MonoBehaviour {
         Input.location.Start();
         setLLS();
         WebSocket ws = new WebSocket("ws://stoh.io:6969");
-        createPOI(41.496042f, -81.683381f, "this is a test", "red");
+        //createPOI(41.496042f, -81.683381f, "this is a test", "red");
 
 
     }
