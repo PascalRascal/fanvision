@@ -14,7 +14,7 @@
 ### Server
 - needs to keep track as to which client is the DataRetriever
 - any new client that connects that is not the DataRetriever needs to get a game update from the DataRetriever
--- cardboard -> server -> -> data retriever -> server -> cardboard
+- cardboard -> server -> -> data retriever -> server -> cardboard
 - Will need json tags setup to talk to eachother
 - Needs to keep track of clients and IDs (not sure how to handle this)
 
