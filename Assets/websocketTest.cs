@@ -22,6 +22,7 @@ public class websocketTest : MonoBehaviour {
 
 
     Network_Socket ns;
+    
 
     Animation animate;
     GameObject poi;
@@ -50,12 +51,12 @@ public class websocketTest : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
         
         if (newMSG())
         {
             handleMSG(ns.msg);
         }
-
         if (Input.touchCount == 1)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
@@ -233,7 +234,7 @@ public class websocketTest : MonoBehaviour {
                     atBatText.text = gameUpdate[i]["new_value"];
                     break;
                 case "photo":
-                    StartCoroutine(gameUpdate[i]["new_value"]);
+                    StartCoroutine(setPicture(gameUpdate[i]["new_value"]));
                     break;
 
                 default:
@@ -277,6 +278,7 @@ public class websocketTest : MonoBehaviour {
 
     private void startFireworks()
     {
+        Debug.Log("Starting Fireworks");
         fire_fireworks fireworks = GetComponent<fire_fireworks>();
         fireworks.duration = 10;
         fireworks.enabled = true;
@@ -300,6 +302,7 @@ public class websocketTest : MonoBehaviour {
         else
         {
             lastMSG = ns.msg;
+            Debug.Log(ns.msg);
             return true;
         }
     }
@@ -316,7 +319,7 @@ public class websocketTest : MonoBehaviour {
         WWW imageUrl = new WWW(picURL);
         while (!imageUrl.isDone)
         {
-            Debug.Log("Loading Picture");
+            //Wait for the image to download or whatever
         }
         playerPic.texture = imageUrl.texture;
         yield return true;

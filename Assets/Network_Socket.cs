@@ -11,10 +11,19 @@ namespace fanVision
         public Network_Socket()
         {
             msg = "NO DATA =(";
-            ws = new WebSocket("ws://stoh.io:9009");
+            ws = new WebSocket("ws://stoh.io:9002");
 
             ws.OnMessage += (sender, e) =>
                 msg = e.Data;
+            ws.OnOpen += (sender, e) =>
+            {
+                Debug.Log("Conenction Openedendaesnda");
+                ws.Send("REEEEEEEEEEEEEEEE");
+            };
+            ws.OnClose += (sender, e) =>
+            {
+                Debug.Log("Connection closed REEEEEEE");
+            };
             ws.ConnectAsync();
 
         }
