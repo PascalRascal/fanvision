@@ -163,7 +163,7 @@ if __name__ == '__main__':
     log.startLogging(sys.stdout)
     ServerFactory  = BroadcastServerFactory
 
-    factory = ServerFactory(u"ws://127.0.0.1:9000")
+    factory = ServerFactory(u"ws://127.0.0.1:9002")
     factory.protocol = BroadcastServerProtocol
     listenWS(factory)
     # factory.setProtocolOptions(maxConnections=2)
