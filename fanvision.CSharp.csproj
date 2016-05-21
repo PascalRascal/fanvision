@@ -147,6 +147,7 @@
     <Compile Include="Assets\mode_controller.cs" />
     <Compile Include="Assets\rotation.cs" />
     <Compile Include="Assets\testLongLat.cs" />
+    <Compile Include="Assets\testPicture.cs" />
     <Compile Include="Assets\testWebsocket.cs" />
     <Compile Include="Assets\websocketTest.cs" />
   </ItemGroup>

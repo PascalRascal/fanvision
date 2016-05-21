@@ -11,11 +11,11 @@ namespace fanVision
         public Network_Socket()
         {
             msg = "NO DATA =(";
-            ws = new WebSocket("ws://stoh.io:6969");
+            ws = new WebSocket("ws://stoh.io:9009");
 
             ws.OnMessage += (sender, e) =>
                 msg = e.Data;
-            ws.Connect();
+            ws.ConnectAsync();
 
         }
     }

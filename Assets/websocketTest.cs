@@ -10,9 +10,17 @@ public class websocketTest : MonoBehaviour {
     public GameObject cam;
     public GameObject POIPrefab;
     public GameObject strikeOut;
+
     public Text home_score;
     public Text away_score;
     public Text strikes;
+    public Text inningText;
+    public Text ballsText;
+    public Text outsText;
+    public Text atBatText;
+    public RawImage playerPic;
+
+
     Network_Socket ns;
 
     Animation animate;
@@ -87,7 +95,8 @@ public class websocketTest : MonoBehaviour {
         float latit = newPOI["latitude"].AsFloat;
         float longit = newPOI["longitude"].AsFloat;
         string ttle = newPOI["title"];
-        createPOI(latit, longit, ttle);
+        string color = newPOI["color"];
+        createPOI(latit, longit, ttle, color);
     }
     private void handleGameUpdate(JSONNode gameUpdate)
     {
@@ -128,8 +137,104 @@ public class websocketTest : MonoBehaviour {
                     away_score.text = gameUpdate[i]["new_value"];
                     break;
                 case "inning":
-                    Debug.Log("Inning would be changed here but theres not UI!");
+                    int inningNumber = int.Parse(gameUpdate[i]["new_value"]);
+                    string strInning = "ERROR";
+                    switch (inningNumber)
+                    {
+                        case 1:
+                            strInning = "FIRST";
+                            break;
+                        case 2:
+                            strInning = "SECOND";
+                            break;
+                        case 3:
+                            strInning = "THIRD";
+                            break;
+                        case 4:
+                            strInning = "FOURTH";
+                            break;
+                        case 5:
+                            strInning = "FIFTH";
+                            break;
+                        case 6:
+                            strInning = "SIXTH";
+                            break;
+                        case 7:
+                            strInning = "SEVENTH";
+                            break;
+                        case 8:
+                            strInning = "EIGTH";
+                            break;
+                        case 9:
+                            strInning = "NINTH";
+                            break;
+                        case 10:
+                            strInning = "TENTH";
+                            break;
+                        default:
+                            break;
+
+                    }
+                    inningText.text = strInning;
                     break;
+                case "balls":
+                    int ballNumber = int.Parse(gameUpdate[i]["new_value"]);
+                    string strBall = "";
+                    switch (ballNumber)
+                    {
+                        case 0:
+                            strBall = "";
+                            break;
+                        case 1:
+                            strBall = "0";
+                            break;
+                        case 2:
+                            strBall = "0 0";
+                            break;
+                        case 3:
+                            strBall = "0 0 0";
+                            break;
+                        case 4:
+                            strBall = "O O O O";
+                            break;
+                        default:
+                            break;
+
+                    }
+                    ballsText.text = strBall;
+                        
+                    break;
+                case "outs":
+                    int outNumber = int.Parse(gameUpdate[i]["new_value"]);
+                    string strOut = "";
+                    switch (outNumber)
+                    {
+                        case 0:
+                            strOut = "";
+                            break;
+                        case 1:
+                            strOut = "-";
+                            break;
+                        case 2:
+                            strOut = "- -";
+                            break;
+                        case 3:
+                            strOut = "- - -";
+                            break;
+                        default:
+                            break;
+
+                    }
+                    outsText.text = strOut;
+                    break;
+
+                case "at_bat":
+                    atBatText.text = gameUpdate[i]["new_value"];
+                    break;
+                case "photo":
+                    StartCoroutine(gameUpdate[i]["new_value"]);
+                    break;
+
                 default:
                     break;
             }
@@ -161,10 +266,10 @@ public class websocketTest : MonoBehaviour {
     }
 
 
-    private void createPOI(float lat, float longit, string title)
+    private void createPOI(float lat, float longit, string title, string color)
     {
         Vector3 RenderVector = lls.spawnModel(lat, longit);
-        poif = new POIFactory(POIPrefab, title, title);
+        poif = new POIFactory(POIPrefab, title, title, color);
         GameObject POI = (GameObject)Instantiate(poif.getPOI(), cam.transform.position + RenderVector, Quaternion.identity);
         POI.transform.LookAt(cam.transform);
     }
@@ -203,6 +308,17 @@ public class websocketTest : MonoBehaviour {
         str = str.Remove(0, 1);
         str = str.Remove(str.Length - 1, 1);
         return str;
+    }
+
+    IEnumerator setPicture(string picURL)
+    {
+        WWW imageUrl = new WWW(picURL);
+        while (!imageUrl.isDone)
+        {
+            Debug.Log("Loading Picture");
+        }
+        playerPic.texture = imageUrl.texture;
+        yield return true;
     }
 
 
