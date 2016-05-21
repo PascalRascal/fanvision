@@ -68,13 +68,14 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
                 global jsonData_base
                 jsonData = jsonData_base
                 global currData
-                if currData is None:
+                if currData["inning"] == -1:
                     currData = ast.literal_eval(text[6:])
                 else:
 
                     data = currData
                     data = ast.literal_eval(text[6:])
                     for key, value in data.iteritems():
+                        global currData
                         currData[key] = value
                         jsonData["data"].append({"item": key, "new_value": value})
                         self.factory.broadcast(json.dumps(jsonData))
