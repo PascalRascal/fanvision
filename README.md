@@ -11,6 +11,23 @@
 
 
 
+### Server
+- needs to keep track as to which client is the DataRetriever
+- any new client that connects that is not the DataRetriever needs to get a game update from the DataRetriever
+-- cardboard -> server -> -> data retriever -> server -> cardboard
+- Will need json tags setup to talk to eachother
+- Needs to keep track of clients and IDs (not sure how to handle this)
+
+
+### Data Retriever
+- Checks for new data every 5 seconds
+- if there is new data, it stores that data and will send it to the server as a game_update json array (as shown in the example below)
+- if the server asks for all data, it will send a game_update with ALL DATA
+
+### Cardboard
+- Needs to get a game_update with ALL DATA on connect (could use onconnect or could send a hello message)
+- Needs game updates sent to it as it comes into the server from the Data Retriever
+
 
 
 http://blog.samuelattard.com/the-tutorial-for-php-websockets-that-i-wish-had-existed/
