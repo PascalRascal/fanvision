@@ -38,7 +38,6 @@ from autobahn.twisted.websocket import WebSocketServerFactory, \
 currData = {"inning": -1, "home_score": -1, "away_score": -1, "balls": -1, "strikes": -1, "outs": -1, "at_bat": "-1", "photo": "-1"}
 jsonData_base = {"data_type": "game_update", "data": []}
 
-
 class BroadcastServerProtocol(WebSocketServerProtocol):
     global myVar
     # global currData
@@ -61,8 +60,9 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
             if text[0:6] != 'server':
                 print "NOT FROM SERVER"
                 global currData
-                jsonData = jsonData_base
-                print "JSON DATA" + str(jsonData)
+                global jsonData
+                jsonData  = jsonData_base
+                print "JSON DATA" + str(jsonData_base)
 
                 for key, value in currData.iteritems():
                     jsonData["data"].append({"item": key, "new_value": value})
