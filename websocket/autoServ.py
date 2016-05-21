@@ -44,6 +44,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
 
     def onConnect(self, request):
         print("Client connecting: {0}".format(request.peer))
+        self.factory.register(self)
 
     def onOpen(self):
         print("WebSocket connection open.")
@@ -95,6 +96,9 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
 
 
 
+    def connectionLost(self, reason):
+        WebSocketServerProtocol.connectionLost(self, reason)
+        self.factory.unregister(self)
 
     def onClose(self, wasClean, code, reason):
         print("WebSocket connection closed: {0}".format(reason))
@@ -123,7 +127,9 @@ class BroadcastServerFactory(WebSocketServerFactory):
             self.clients.remove(client)
 
     def broadcast(self, msg):
-        print("broadcasting message '{}' ..".format(msg))
+        print "IN BROADCAST"
+        #print("broadcasting message '{}' ..".format(msg))
+        print str(self.clients)
         for c in self.clients:
             c.sendMessage(msg.encode('utf8'))
             print("message sent to {}".format(c.peer))
