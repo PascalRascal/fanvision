@@ -58,7 +58,8 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
             # print("Text message received: {0}".format(payload.decode('utf8')))
             text = format(payload.decode('utf8'))
             #global jsonData_base
-
+            if text[0:3] == 'poi':
+                self.factory.broadcast('{"data_type": "new_poi", "data": {"latitude": 41.496042, "longitude": -81.683381, "title": "Hello Friends!", "color": "blue"}}')
             if text[0:9] == 'fireworks':
                 self.factory.broadcast('{"data_type": "alert", "data": {"type": "homerun"}}')
                 return
