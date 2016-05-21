@@ -1,3 +1,17 @@
+## NEW JSON SENDING SYSTEM
+
+#### Runthrough
+
+- Server starts websocket, only in charge of broadcasting data and sending to clients
+- DataRetriever is a client that connects to websocket
+- When DataRetriever gets new data, it sends it to server by sending a game update json
+- Server will interperet this and broadcast it back to everyone else.
+- When a new client joins the websocket sever, it should send a request json
+- The request json will forward to the DataRetriever client, which in turn will return a game update of ALL info about the game, which will only go to THAT CLIENT (Important)
+
+
+
+
 
 http://blog.samuelattard.com/the-tutorial-for-php-websockets-that-i-wish-had-existed/
 
