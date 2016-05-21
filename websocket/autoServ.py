@@ -57,12 +57,12 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
         else:
             # print("Text message received: {0}".format(payload.decode('utf8')))
             text = format(payload.decode('utf8'))
-            global jsonData_base
+            #global jsonData_base
             if text[0:6] != 'server':
                 print "NOT FROM SERVER"
                 global currData
                 jsonData = jsonData_base
-                print "JSON DATA" + str(jsonData_base)
+                print "JSON DATA" + str(jsonData)
 
                 for key, value in currData.iteritems():
                     jsonData["data"].append({"item": key, "new_value": value})
