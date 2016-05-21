@@ -5,6 +5,8 @@ import random
 strikes = 0
 away = 0
 home = 0
+def poll_update():
+    
 def roll_dice():
 	global home
 	global away
@@ -38,6 +40,7 @@ sleep(1)
 try:
 	while True:
 		roll_dice()
+                poll_update()
 		sleep(5)
 except KeyboardInterrupt:
 	pass
