@@ -62,7 +62,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
                 print "NOT FROM SERVER"
                 global jsonData_base, currData
                 jsonData = jsonData_base
-                print "JSON DATA" + str(jsonDATA)
+                print "JSON DATA" + str(jsonData)
                 for key, value in currData.iteritems():
                     jsonData["data"].append({"item": key, "new_value": value})
                 print "SENDING: " + str(json.dumps(jsonData))
