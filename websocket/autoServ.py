@@ -25,14 +25,21 @@
 ###############################################################################
 import json
 import ast
-from autobahn.twisted.websocket import WebSocketServerProtocol, \
-    WebSocketServerFactory
+from twisted.internet import reactor
+from twisted.python import log
+from twisted.web.server import Site
+from twisted.web.static import File
+
+from autobahn.twisted.websocket import WebSocketServerFactory, \
+    WebSocketServerProtocol, \
+    listenWS
 
 
 currData = {"inning": -1, "home_score": -1, "away_score": -1, "balls": -1, "strikes": -1, "outs": -1, "at_bat": "-1", "photo": "-1"}
 jsonData_base = {"data_type": "game_update", "data": []}
 
-class MyServerProtocol(WebSocketServerProtocol):
+
+class BroadcastServerProtocol(WebSocketServerProtocol):
     global myVar
     # global currData
 
@@ -70,9 +77,7 @@ class MyServerProtocol(WebSocketServerProtocol):
                     for key, value in data.iteritems():
                         currData[key] = value
                         jsonData["data"].append({"item": key, "new_value": value})
-                    for c in self.clients:
-                        c.sendMessage(json.dumps(jsonData))
-                        print "message sent to client"
+                        self.factory.broadcast(json.dumps(jsonData))
 
 
 
@@ -81,6 +86,71 @@ class MyServerProtocol(WebSocketServerProtocol):
 
     def onClose(self, wasClean, code, reason):
         print("WebSocket connection closed: {0}".format(reason))
+
+
+
+class BroadcastServerFactory(WebSocketServerFactory):
+
+    """
+    Simple broadcast server broadcasting any message it receives to all
+    currently connected clients.
+    """
+
+    def __init__(self, url):
+        WebSocketServerFactory.__init__(self, url)
+        self.clients = []
+        self.tickcount = 0
+        self.tick()
+
+    def tick(self):
+        self.tickcount += 1
+        self.broadcast("tick %d from server" % self.tickcount)
+        reactor.callLater(1, self.tick)
+
+    def register(self, client):
+        if client not in self.clients:
+            print("registered client {}".format(client.peer))
+            self.clients.append(client)
+
+    def unregister(self, client):
+        if client in self.clients:
+            print("unregistered client {}".format(client.peer))
+            self.clients.remove(client)
+
+    def broadcast(self, msg):
+        print("broadcasting message '{}' ..".format(msg))
+        for c in self.clients:
+            c.sendMessage(msg.encode('utf8'))
+            print("message sent to {}".format(c.peer))
+
+
+class BroadcastPreparedServerFactory(BroadcastServerFactory):
+
+    """
+    Functionally same as above, but optimized broadcast using
+    prepareMessage and sendPreparedMessage.
+    """
+
+    def broadcast(self, msg):
+        print("broadcasting prepared message '{}' ..".format(msg))
+        preparedMsg = self.prepareMessage(msg)
+        for c in self.clients:
+            c.sendPreparedMessage(preparedMsg)
+            print("prepared message sent to {}".format(c.peer))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
@@ -92,8 +162,9 @@ if __name__ == '__main__':
 
     log.startLogging(sys.stdout)
 
-    factory = WebSocketServerFactory(u"ws://127.0.0.1:9000")
-    factory.protocol = MyServerProtocol
+    factory = ServerFactory(u"ws://127.0.0.1:9000")
+    factory.protocol = BroadcastServerProtocol
+    listenWS(factory)
     # factory.setProtocolOptions(maxConnections=2)
 
     reactor.listenTCP(9000, factory)
