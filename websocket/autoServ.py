@@ -54,16 +54,13 @@ class MyServerProtocol(WebSocketServerProtocol):
             else:
                 global currData
                 if currData is None:
-                    currData = json.loads(text[6:])
-                    # print(currData)
+                    currData = json.literal_eval(text[6:])
+                    print currData
                 else:
-                    data = json.loads(text[6:])
-                    print("print keys")
-#                    for key, value in data["data"]:
-                        # for keyz, valuez in
-                        # print(data["data"][key])
-                        # print(data["data"][value])
-                        # print("key = " + key + " value = " + value)
+                    data = currData
+                    data = json.literal_eval(text[6:])
+                    print data
+
 
 
 
