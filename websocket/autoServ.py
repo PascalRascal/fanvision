@@ -167,5 +167,5 @@ if __name__ == '__main__':
     listenWS(factory)
     # factory.setProtocolOptions(maxConnections=2)
 
-    reactor.listenTCP(9000, factory)
-    reactor.run()
+    #reactor.listenTCP(9000, factory)
+    #reactor.run()
