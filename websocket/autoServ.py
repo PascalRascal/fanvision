@@ -70,7 +70,9 @@ class MyServerProtocol(WebSocketServerProtocol):
                     for key, value in data.iteritems():
                         currData[key] = value
                         jsonData["data"].append({"item": key, "new_value": value})
-                    self.broadcast(json.dumps(jsonData))
+                    for c in self.clients:
+                        c.sendMessage(json.dumps(jsonData))
+                        print "message sent to client"
 
 
 
