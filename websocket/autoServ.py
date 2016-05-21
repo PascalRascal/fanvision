@@ -24,6 +24,7 @@
 #
 ###############################################################################
 import json
+import ast
 from autobahn.twisted.websocket import WebSocketServerProtocol, \
     WebSocketServerFactory
 
@@ -54,11 +55,11 @@ class MyServerProtocol(WebSocketServerProtocol):
             else:
                 global currData
                 if currData is None:
-                    currData = json.literal_eval(text[6:])
+                    currData = ast.literal_eval(text[6:])
                     print currData
                 else:
                     data = currData
-                    data = json.literal_eval(text[6:])
+                    data = ast.literal_eval(text[6:])
                     print data
 
 
