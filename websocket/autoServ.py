@@ -59,7 +59,7 @@ class MyServerProtocol(WebSocketServerProtocol):
                 else:
                     data = json.loads(text[6:])
                     print("print keys")
-                    for key, value in data["data"]:
+#                    for key, value in data["data"]:
                         # for keyz, valuez in
                         # print(data["data"][key])
                         # print(data["data"][value])
