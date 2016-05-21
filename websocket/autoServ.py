@@ -65,7 +65,7 @@ class BroadcastServerProtocol(WebSocketServerProtocol):
                 self.factory.broadcast('{"data_type": "alert", "data": {"type": "hud_on"}}')
                 return
             if text[0:3] == 'poi':
-                self.factory.broadcast('{"data_type": "new_poi", "data": {"latitude": 41.496042, "longitude": -81.683381, "title": "Hello Friends!", "color": "blue"}}')
+                self.factory.broadcast('{"data_type": "new_poi", "data": {"latitude": 41.496381, "longitude": -81.686159, "title": "Hello Friends!", "color": "blue"}}')
                 return
             if text[0:9] == 'fireworks':
                 self.factory.broadcast('{"data_type": "alert", "data": {"type": "homerun"}}')
